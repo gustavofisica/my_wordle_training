@@ -18,7 +18,7 @@ class Wordle:
     def guess(self, word: str):
         word = word.upper()
         result = []
-        
+
         for i in range(self.WORD_LENGTH):
             character = word[i]
             letter = LetterState(character)
