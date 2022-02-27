@@ -1,3 +1,4 @@
+from cgitb import reset
 from wordle import Wordle
 
 
@@ -8,6 +9,9 @@ def main():
     while wordle.can_attempt:
         x = input("Type your guess: ")
         wordle.attempt(x)
+        result = wordle.guess(x)
+        print(*result, sep="\n")
+
     if wordle.is_solved:
         print("You've solved the puzzle.")
     else:
