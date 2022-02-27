@@ -9,6 +9,10 @@ def main():
     while wordle.can_attempt:
         x = input("Type your guess: ")
         wordle.attempt(x)
+        if len(x) != wordle.WORD_LENGTH:
+            print(f"Word must be {wordle.WORD_LENGTH} characters long!")
+            continue
+
         result = wordle.guess(x)
         print(*result, sep="\n")
 
