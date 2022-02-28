@@ -8,10 +8,21 @@ import random
 
 
 def main():
-    
-    word_set = load_word_set("my_wordle_training/data/wordle_words.txt")
-    secret = random.choice(list(word_set))
+    choose_language = 0
+    while choose_language != "1" or choose_language != "2":
+        print("Choose game language")
+        print("1 - English")
+        print("2 - Portuguese")
+        choose_language = str(input("Enter the option: "))
+        break
 
+    if choose_language == "1":
+        word_set_data = "my_wordle_training/data/wordle_words.txt"
+    elif choose_language == "2":
+        word_set_data = "my_wordle_training/data/wordle_words_portuguese.txt"
+
+    word_set = load_word_set(word_set_data)
+    secret = random.choice(list(word_set))
     wordle = Wordle(secret)
 
     while wordle.can_attempt:
@@ -74,6 +85,7 @@ def draw_border_around(lines: List[str], size: int = 9, pad: int = 1):
 
     print(bottom_border)
 
+
 def load_word_set(path: str):
     word_set = set()
     with open(path, "r") as file:
@@ -81,6 +93,7 @@ def load_word_set(path: str):
             word = line.strip().upper()
             word_set.add(word)
     return word_set
+
 
 if __name__ == "__main__":
     main()
