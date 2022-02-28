@@ -1,12 +1,18 @@
+import secrets
+from tkinter.messagebox import RETRY
 from wordle import Wordle
 from letter_state import LetterState
 from colorama import Fore
 from typing import List
+import random
 
 
 def main():
-    print("Hello Wordle!")
-    wordle = Wordle("APPLE")
+    
+    word_set = load_word_set("my_wordle_training/data/wordle_words.txt")
+    secret = random.choice(list(word_set))
+
+    wordle = Wordle(secret)
 
     while wordle.can_attempt:
         x = input("\nType your guess: ")
@@ -22,6 +28,7 @@ def main():
         print("You've solved the puzzle.")
     else:
         print("You failed to solve the puzzle!")
+        print(f"The secret word was: {wordle.secret}")
 
 
 def display_results(wordle: Wordle):
@@ -67,6 +74,13 @@ def draw_border_around(lines: List[str], size: int = 9, pad: int = 1):
 
     print(bottom_border)
 
+def load_word_set(path: str):
+    word_set = set()
+    with open(path, "r") as file:
+        for line in file.readlines():
+            word = line.strip().upper()
+            word_set.add(word)
+    return word_set
 
 if __name__ == "__main__":
     main()
